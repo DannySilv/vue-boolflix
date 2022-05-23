@@ -1,25 +1,37 @@
 <template>
-  <header>
-    <div class="header-container">
-      <h2>BOOLFLIX</h2>
-      <div class="search">
-        <AppSearch
-          @searchClicked="genSearchResult($event)"
-          @resetClicked="resetSearch($event)"
-        />
+  <div>
+    <header>
+      <div class="header-container">
+        <h2>BOOLFLIX</h2>
+        <div class="search">
+          <AppSearch
+            @searchClick="genSearchResult($event)"
+            @resetClick="resetSearch($event)"
+          />
+        </div>
       </div>
+    </header>
+    <div class="cards-container">
+      <AppCard
+        v-for="(element, index) in movieList"
+        :key="index"
+        :movieCard="element"
+      />
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
 import AppSearch from "./AppSearch.vue";
+import AppCard from "./AppCard.vue";
 import axios from "axios";
 
 export default {
   name: "AppHeader",
+  props: {},
   components: {
     AppSearch,
+    AppCard,
   },
   data() {
     return {
@@ -44,6 +56,7 @@ export default {
     genSearchResult(searchKey) {
       this.thisSearch("https://api.themoviedb.org/3/search/movie", searchKey);
       this.thisSearch("https://api.themoviedb.org/3/search/tv", searchKey);
+      console.log(this.movieList);
     },
     resetSearch() {
       this.movieList = [];
@@ -55,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 $header-card-bg: #2e3a46;
 $main-bg: #1e2d3b;
+$text-color: #727873;
 
 header {
   width: 100%;
@@ -71,5 +85,13 @@ header {
   h2 {
     color: red;
   }
+}
+.cards-container {
+  width: 90%;
+  margin: 1rem auto;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 </style>

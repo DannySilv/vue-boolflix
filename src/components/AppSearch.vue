@@ -4,12 +4,12 @@
       type="text"
       placeholder="Cerca un Film o una Serie"
       v-model="thisSearch"
-      @keyup.enter="$emit('searchClicked', thisSearch)"
+      @keyup.enter="$emit('searchClick', thisSearch)"
     />
-    <button class="btn" @click="$emit('searchClicked', thisSearch)">
+    <button class="btn" @click="$emit('searchClick', thisSearch)">
       <font-awesome-icon icon="fas fa-search" />
     </button>
-    <button class="btn" @click="resetClicked">
+    <button class="btn" @click="resetClick">
       <font-awesome-icon icon="fas fa-redo" />
     </button>
   </div>
@@ -24,9 +24,9 @@ export default {
     };
   },
   methods: {
-    resetClicked() {
+    resetClick() {
       this.thisSearch = "";
-      this.$emit("resetClicked");
+      this.$emit("resetClick");
     },
   },
 };
