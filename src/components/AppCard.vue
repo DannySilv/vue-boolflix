@@ -17,7 +17,7 @@
           {{ movieCard.original_title || movieCard.original_name }}
         </h3>
       </div>
-      <div class="row">
+      <div class="row-language">
         <h2>Lingua:</h2>
         <AppFlags :flagLanguage="this.movieCard.original_language" />
       </div>
@@ -93,6 +93,13 @@ $text-color: #727873;
     justify-content: flex-start;
     margin-top: 0.5rem;
   }
+  .row-language {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+  }
 }
 h2 {
   color: $text-color;
@@ -110,6 +117,6 @@ h3 {
   font-size: 0.8rem;
 }
 p {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 </style>

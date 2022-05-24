@@ -3,7 +3,7 @@
     <span v-for="(element, index) in ratings" :key="index">
       <font-awesome-icon
         class="star"
-        :class="rate >= index ? '.active' : ''"
+        :class="rate > index ? 'active' : ''"
         icon="fas fa-star"
       />
     </span>
@@ -20,13 +20,6 @@ export default {
     return {
       ratings: [1, 2, 3, 4, 5],
     };
-  },
-  methods: {
-    stars(rating) {
-      for (let i = rating; i >= 1; i--) {
-        return ".active";
-      }
-    },
   },
 };
 </script>

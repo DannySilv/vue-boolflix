@@ -51,14 +51,14 @@ export default {
 $text-color: #727873;
 
 .logo-container {
-  width: 15%;
+  width: 1.2rem;
   margin-right: auto;
 }
 h3 {
   margin: 0;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 300;
-  text-align: center;
+  text-align: start;
   color: $text-color;
 }
 </style>
