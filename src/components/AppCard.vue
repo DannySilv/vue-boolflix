@@ -30,27 +30,23 @@
       </div>
       <div class="row">
         <h2>Overview:</h2>
-        <p class="text">{{ this.movieCard.overview }}</p>
+        <p class="text">{{ movieCard.overview }}</p>
       </div>
       <div class="row">
         <h2>Cast:</h2>
-        <div
-          class="genres-cast"
-          v-for="(actors, index) in castList"
-          :key="index"
-        >
-          {{ actors.original_name }}
-        </div>
+        <ul>
+          <li v-for="(actors, index) in castList" :key="index">
+            {{ actors.original_name }}
+          </li>
+        </ul>
       </div>
       <div class="row">
         <h2>Genere:</h2>
-        <div
-          class="genres-cast"
-          v-for="(genres, index) in genresList"
-          :key="index"
-        >
-          {{ genres.name }}
-        </div>
+        <ul>
+          <li v-for="(genres, index) in genresList" :key="index">
+            {{ genres.name }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -177,7 +173,7 @@ h3 {
 p {
   font-size: 0.7rem;
 }
-.genres-cast {
+li {
   margin: 0;
   font-weight: 300;
   text-align: start;
