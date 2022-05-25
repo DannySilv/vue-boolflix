@@ -1,10 +1,13 @@
 <template>
   <div class="card-container">
-    <div class="img-container">
+    <div v-if="movieCard.poster_path" class="img-container">
       <img
         :src="'https://image.tmdb.org/t/p/w342' + movieCard.poster_path"
         alt=""
       />
+    </div>
+    <div v-else class="flex">
+      <h1>No image available</h1>
     </div>
     <div class="info-container">
       <div class="row">
@@ -29,6 +32,26 @@
         <h2>Overview:</h2>
         <p class="text">{{ this.movieCard.overview }}</p>
       </div>
+      <div class="row">
+        <h2>Cast:</h2>
+        <div
+          class="genres-cast"
+          v-for="(actors, index) in castList"
+          :key="index"
+        >
+          {{ actors.original_name }}
+        </div>
+      </div>
+      <div class="row">
+        <h2>Genere:</h2>
+        <div
+          class="genres-cast"
+          v-for="(genres, index) in genresList"
+          :key="index"
+        >
+          {{ genres.name }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +59,7 @@
 <script>
 import AppFlags from "./AppFlags.vue";
 import AppStarsRating from "./AppStarsRating.vue";
+import axios from "axios";
 
 export default {
   name: "AppCard",
@@ -49,7 +73,29 @@ export default {
   data() {
     return {
       rate: "",
+      castList: [],
+      genresList: [],
     };
+  },
+  created() {
+    const params = {
+      api_key: "036d8909f87005de49ae4df23607af26",
+      language: "it-IT",
+    };
+    const cast = axios.get(
+      `https://api.themoviedb.org/3/movie/${this.movieCard.id}/credits`,
+      { params }
+    );
+    const genre = axios.get(
+      `https://api.themoviedb.org/3/movie/${this.movieCard.id}`,
+      {
+        params,
+      }
+    );
+    axios.all([cast, genre]).then((resp) => {
+      this.castList = resp[0].data.cast.splice(0, 5);
+      this.genresList = resp[1].data.genres;
+    });
   },
   methods: {
     movieRate(number) {
@@ -78,6 +124,9 @@ $text-color: #727873;
     .img-container {
       display: none;
     }
+    .flex {
+      display: none;
+    }
     .info-container {
       display: flex;
     }
@@ -101,6 +150,15 @@ $text-color: #727873;
     margin-top: 0.5rem;
   }
 }
+.flex {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  h1 {
+    color: $text-color;
+    text-align: center;
+  }
+}
 h2 {
   color: $text-color;
   font-size: 0.8rem;
@@ -117,6 +175,13 @@ h3 {
   font-size: 0.8rem;
 }
 p {
+  font-size: 0.7rem;
+}
+.genres-cast {
+  margin: 0;
+  font-weight: 300;
+  text-align: start;
+  color: $text-color;
   font-size: 0.7rem;
 }
 </style>

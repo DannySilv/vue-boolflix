@@ -27,7 +27,7 @@ import AppCard from "./AppCard.vue";
 import axios from "axios";
 
 export default {
-  name: "AppHeader",
+  name: "AppMain",
   props: {},
   components: {
     AppSearch,
@@ -35,6 +35,7 @@ export default {
   },
   data() {
     return {
+      apiKey: "036d8909f87005de49ae4df23607af26",
       movieList: [],
     };
   },
@@ -43,9 +44,8 @@ export default {
       axios
         .get(url, {
           params: {
-            api_key: "036d8909f87005de49ae4df23607af26",
-            lang: "en-US",
-            page: 1,
+            api_key: this.apiKey,
+            lang: "it-IT",
             query: searchKey,
           },
         })

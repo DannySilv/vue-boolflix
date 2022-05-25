@@ -28,6 +28,10 @@ export default {
         this.language = require("../assets/img/spain.png");
       } else if (thisLanguage == "de") {
         this.language = require("../assets/img/germany.png");
+      } else if (thisLanguage == "fr") {
+        this.language = require("../assets/img/france.png");
+      } else if (thisLanguage == "ja") {
+        this.language = require("../assets/img/japan.png");
       }
     },
     isFlagAvailable(thisLanguage) {
@@ -38,6 +42,10 @@ export default {
       } else if (thisLanguage == "es") {
         return true;
       } else if (thisLanguage == "de") {
+        return true;
+      } else if (thisLanguage == "fr") {
+        return true;
+      } else if (thisLanguage == "ja") {
         return true;
       } else {
         return false;
