@@ -1,19 +1,22 @@
 <template>
   <div id="app">
-    <AppHeader
-      @searchClick="thisSearch($event)"
-      @resetClick="resetSearch"
-      @filterGenre="thisFilter($event)"
-      :genresList="genresList"
-    />
-    <AppMain 
-      :movieList="movieList"
-      :seriesList="seriesList"
-    />
+    <div v-if="endSearching">
+      <AppStartingSearch @searchClick="thisSearch($event)" />
+    </div>
+    <div v-if="!endSearching">
+      <AppHeader
+        @searchClick="thisSearch($event)"
+        @resetClick="resetSearch"
+        @filterGenre="thisFilter($event)"
+        :genresList="genresList"
+      />
+      <AppMain :movieList="movieList" :seriesList="seriesList" />
+    </div>
   </div>
 </template>
 
 <script>
+import AppStartingSearch from "./components/AppStartingSearch.vue";
 import AppHeader from "./components/AppHeader.vue";
 import AppMain from "./components/AppMain.vue";
 import axios from "axios";
@@ -21,11 +24,13 @@ import axios from "axios";
 export default {
   name: "App",
   components: {
+    AppStartingSearch,
     AppHeader,
     AppMain,
   },
   data() {
     return {
+      endSearching: true,
       apiKey: "036d8909f87005de49ae4df23607af26",
       movieList: [],
       seriesList: [],
@@ -60,6 +65,7 @@ export default {
         }
       );
       axios.all([movies, series, genresMovies, genresSeries]).then((resp) => {
+        this.endSearching = false;
         this.genresMovieList = resp[0].data.results;
         this.movieList = this.genresMovieList;
         this.genresSeriesList = resp[1].data.results;
@@ -86,7 +92,9 @@ export default {
     resetSearch() {
       this.movieList = [];
       this.seriesList = [];
-      this.genresList = [];
+      if (this.endSearching == false) {
+        this.endSearching = true;
+      }
     },
     thisFilter(thisID) {
       if (thisID !== "") {

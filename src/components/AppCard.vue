@@ -56,7 +56,6 @@
 import AppFlags from "./AppFlags.vue";
 import AppStarsRating from "./AppStarsRating.vue";
 import axios from "axios";
-
 export default {
   name: "AppCard",
   props: {
@@ -104,15 +103,11 @@ export default {
 
 <style lang="scss" scoped>
 $header-card-bg: #2e3a46;
-$main-bg: #1e2d3b;
 $text-color: #727873;
 
 .card-container {
   width: calc(100% / 4 - 15px);
-  background-color: $header-card-bg;
-  padding: 1.5%;
-  margin: 5px 0;
-  margin-left: 15px;
+  margin: 5px;
   &:hover {
     transform: scale(1.1, 1.1) translateY(-5px);
     opacity: 0.9;
@@ -129,8 +124,14 @@ $text-color: #727873;
   }
 }
 .info-container {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
   display: none;
   flex-direction: column;
+  background-color: $header-card-bg;
+  position: relative;
+  z-index: 5;
   .row {
     display: flex;
     align-items: baseline;
@@ -148,6 +149,7 @@ $text-color: #727873;
 }
 .flex {
   display: flex;
+  background-color: $header-card-bg;
   align-items: center;
   height: 100%;
   h1 {

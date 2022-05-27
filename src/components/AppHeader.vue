@@ -1,16 +1,23 @@
 <template>
   <header>
     <div class="header-container">
-      <h2>BOOLFLIX</h2>  
-      <div class="search-container">
+      <div class="logo-container">
+        <h2>BOOLFLIX</h2>
+        <font-awesome-icon
+          class="icon"
+          icon="fas fa-chevron-down"
+          @click="toggle()"
+        />
+      </div>
+      <div class="search-container" v-if="showSearch">
         <select
           @change="$emit('filterGenre', filterGenre)"
           v-model="filterGenre"
-          class="input"
+          class="filter"
           name="filter"
           id="filter"
         >
-          <option value="" selected>Filtra per genere</option>
+          <option value="" selected>Filtro</option>
           <option
             v-for="element in genresList"
             :key="element.id"
@@ -20,16 +27,15 @@
           </option>
         </select>
         <input
-          class="input"
           type="text"
           placeholder="Cerca un Film o una Serie"
           v-model="searchKey"
           @keyup.enter="sendSearch(), filterGenre"
         />
-        <button class="btn" @click="sendSearch(), filterGenre">
+        <button class="btn abs-1" @click="sendSearch(), filterGenre">
           <font-awesome-icon icon="fas fa-search" />
         </button>
-        <button class="btn" @click="resetClick">
+        <button class="btn abs-2" @click="resetClick">
           <font-awesome-icon icon="fas fa-redo" />
         </button>
       </div>
@@ -47,6 +53,7 @@ export default {
     return {
       searchKey: "",
       filterGenre: "",
+      showSearch: false,
     };
   },
   methods: {
@@ -57,6 +64,14 @@ export default {
     sendSearch() {
       this.$emit("searchClick", this.searchKey);
       this.searchKey = "";
+      this.showSearch = false;
+    },
+    toggle() {
+      if (this.showSearch == false) {
+        this.showSearch = true;
+      } else {
+        this.showSearch = false;
+      }
     },
   },
 };
@@ -68,38 +83,84 @@ $header-card-bg: #2e3a46;
 header {
   width: 100%;
   height: 80px;
-  background-color: $header-card-bg;
+  background-color: black;
   .header-container {
-    width: 90%;
+    width: 100%;
     height: 80px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
   }
-  h2 {
-    color: red;
+  .logo-container {
+    position: absolute;
+    top: 30%;
+    left: 40px;
+    width: 190px;
+    display: flex;
+    align-items: center;
+    h2 {
+      font-family: verdana;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: red;
+      text-shadow: 0px 0px 0px #930404, 1px 1px 1px #930404,
+        1px 1.5px 1px #930404, 1px 2px 1px #930404, 1px 2.5px 1px #930404,
+        1px 3px 1px #930404, 1px 3.5px 1px #930404, 1px 4px 1px #930404,
+        1px 4.5px 1px #930404, 1px 5px 1px #930404,
+        1px 18px 6px rgb(16 16 16 / 40%), 1px 22px 10px rgb(16 16 16 / 20%),
+        1px 25px 35px rgb(16 16 16 / 20%), 1px 30px 60px rgb(16 16 16 / 40%);
+    }
+    .icon {
+      font-size: 1rem;
+      color: white;
+      margin-left: 1rem;
+    }
   }
 }
 
 .search-container {
   display: flex;
-  justify-content: space-between;
+  width: 80%;
+  margin-left: 15%;
+  justify-content: flex-end;
   align-items: center;
-  .input {
+  position: relative;
+  .filter {
+    position: absolute;
+    width: 100px;
+    top: 16%;
+    right: 9%;
     font-family: "Ubuntu", sans-serif;
     font-size: 0.8rem;
+    padding: 0.1rem 0;
+    border: 1px solid white;
+    border-radius: 5px;
+    text-align: end;
+  }
+  input {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 0.8rem;
+    width: 70%;
     padding: 0.4rem 0.6rem;
     border: 1px solid white;
     border-radius: 5px;
-    margin-left: 0.2rem;
   }
   .btn {
-    padding: 0.4rem 0.6rem;
-    margin-left: 0.1rem;
+    position: absolute;
+    padding: 0 0.2rem;
     background-color: white;
     border: 1px solid white;
     border-radius: 5px;
+  }
+  .abs-1 {
+    top: 23%;
+    right: 5%;
+  }
+  .abs-2 {
+    top: 23%;
+    right: 1.2%;
   }
 }
 </style>

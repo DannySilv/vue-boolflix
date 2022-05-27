@@ -21,7 +21,6 @@
 
 <script>
 import AppCard from "./AppCard.vue";
-
 export default {
   name: "AppMain",
   props: {
@@ -31,12 +30,11 @@ export default {
   components: {
     AppCard,
   },
-}; 
+};
 </script>
 
 <style lang="scss" scoped>
 $text-color: #727873;
-
 .cards-container {
   width: 90%;
   margin: auto;
@@ -45,7 +43,6 @@ $text-color: #727873;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-
 h1 {
   color: $text-color;
   font-size: 1.8rem;
