@@ -63,13 +63,12 @@ export default {
     },
     sendSearch() {
       this.$emit("searchClick", this.searchKey);
-      this.searchKey = "";
       this.showSearch = false;
     },
     toggle() {
       if (this.showSearch == false) {
         this.showSearch = true;
-      } else {
+      } else if (this.showSearch == true) {
         this.showSearch = false;
       }
     },
@@ -79,6 +78,7 @@ export default {
 
 <style lang="scss" scoped>
 $header-card-bg: #2e3a46;
+$text-color: #727873;
 
 header {
   width: 100%;
@@ -116,6 +116,7 @@ header {
       font-size: 1rem;
       color: white;
       margin-left: 1rem;
+      cursor: pointer;
     }
   }
 }
@@ -127,6 +128,18 @@ header {
   justify-content: flex-end;
   align-items: center;
   position: relative;
+  select::-webkit-scrollbar {
+    width: 0.5em;
+    height: 1rem;
+  }
+  select::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  select::-webkit-scrollbar-thumb {
+    background-color: $text-color;
+    outline: 1px solid white;
+    border-radius: 10px;
+  }
   .filter {
     position: absolute;
     width: 100px;
@@ -138,6 +151,7 @@ header {
     border: 1px solid white;
     border-radius: 5px;
     text-align: end;
+    cursor: pointer;
   }
   input {
     font-family: "Ubuntu", sans-serif;
@@ -153,6 +167,7 @@ header {
     background-color: white;
     border: 1px solid white;
     border-radius: 5px;
+    cursor: pointer;
   }
   .abs-1 {
     top: 23%;
